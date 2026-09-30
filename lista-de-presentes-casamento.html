@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lista de Presentes de Casamento</title>
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Arial,sans-serif;background:#f7f5f0;color:#4d5145}
+  .hero{text-align:center;padding:42px 20px 28px;background:#e8eadf}
+  h1{margin:0 0 8px;font-family:Georgia,serif;font-size:32px;font-weight:500}
+  .date{font-size:15px;letter-spacing:2px}
+  .intro{max-width:620px;margin:14px auto 0;line-height:1.5;color:#666}
+  .container{max-width:760px;margin:24px auto;padding:0 16px 40px}
+  .pixbox{background:white;border-radius:18px;padding:20px;margin-bottom:22px;box-shadow:0 3px 15px #00000010;text-align:center}
+  .pixbox h2{font-family:Georgia,serif;margin:0 0 8px}
+  .pix{font-weight:bold;word-break:break-all;margin:12px 0;color:#5d684e}
+  button{border:0;border-radius:10px;padding:11px 18px;background:#707c61;color:white;font-weight:bold;cursor:pointer}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .item{background:white;border-radius:14px;padding:16px;box-shadow:0 2px 10px #00000008;display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .item.special{border:1px solid #c7cdbb;display:block}
+  .item strong{display:block;color:#454a3f}
+  .item small{color:#777}
+  .gift-btn{background:#9aa18e;padding:8px 12px;font-size:12px;white-space:nowrap}
+  .special .price{font-size:20px;font-weight:bold;margin:8px 0;color:#5d684e}
+  .special .pixsmall{font-size:13px;word-break:break-all;color:#666;margin:8px 0 12px}
+  .note{text-align:center;font-size:13px;color:#777;margin-top:18px}
+  @media(max-width:600px){.grid{grid-template-columns:1fr}h1{font-size:28px}}
+</style>
+</head>
+<body>
+<section class="hero">
+  <h1>Lista de Presentes</h1>
+  <div class="date">M & K • 14.11.2026</div>
+  <p class="intro">Sua presença já é um presente! Mas, se quiser nos presentear, escolhemos algumas coisas para nossa nova casa e nossa lua de mel. 💍</p>
+</section>
+
+<main class="container">
+  <div class="pixbox">
+    <h2>Pix</h2>
+    <div class="pix">marialuizacastromagalhes07@gmail.com</div>
+    <button onclick="navigator.clipboard.writeText('marialuizacastromagalhes07@gmail.com');this.textContent='Pix copiado!'">Copiar Pix</button>
+  </div>
+
+  <div class="grid" id="gifts"></div>
+  <p class="note">Os itens físicos podem ser escolhidos uma vez. Vale-presente e Missão Lua de Mel podem ser dados por várias pessoas.</p>
+</main>
+
+<script>
+const gifts = [
+"Jogo de panelas","Frigideira antiaderente","Aparelho de jantar","Jogo de copos",
+"Jogo de taça vinho — 4 un.","Jogo de taça de gin — 6 un.","Jogo de copo uísque",
+"Jogo de talheres prata","Kit de churrasco","Travessas e assadeiras","Churrasqueira",
+"Batedeira","Air fryer","Garrafa térmica para café","Mini bar","Jogo de xícaras",
+"Potes organizadores","Jogo de cama","Jogo de banho","Sousplat","Edredom ou cobertor",
+"Almofadas","Cortinas","Tapetes","Aspirador de pó vertical","Ferro de passar",
+"Kit de frigideira","Organizadores para armários","Kit de ferramentas","Espelho grande"
+];
+
+const box=document.getElementById('gifts');
+gifts.forEach((name,i)=>{
+  const div=document.createElement('div');
+  div.className='item';
+  div.innerHTML=`<strong>${name}</strong><button class="gift-btn" onclick="choose(this,'${name.replace(/'/g,"\\'")}')">Escolher</button>`;
+  box.appendChild(div);
+});
+
+const special = [
+  {name:"Vale-presente", price:"R$ 100,00"},
+  {name:"Missão Lua de Mel", price:"R$ 300,00"}
+];
+special.forEach(x=>{
+  const div=document.createElement('div');
+  div.className='item special';
+  div.innerHTML=`<strong>💚 ${x.name}</strong><div class="price">${x.price}</div><div class="pixsmall">Pix: marialuizacastromagalhes07@gmail.com</div><button onclick="navigator.clipboard.writeText('marialuizacastromagalhes07@gmail.com');this.textContent='Pix copiado!'">Copiar Pix</button>`;
+  box.appendChild(div);
+});
+
+function choose(btn,name){
+  const who=prompt(`Quem vai dar "${name}"? Digite o nome:`);
+  if(who){
+    btn.textContent="Escolhido";
+    btn.disabled=true;
+    btn.style.opacity=".55";
+    alert(`Obrigado, ${who}! ${name} foi escolhido.`);
+  }
+}
+</script>
+</body>
+</html>
